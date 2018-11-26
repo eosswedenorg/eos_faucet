@@ -24,7 +24,7 @@ ip_24h_token_amount_limiter = ratelimit.RateLimitType(
   name = "ip_24h_token_amount",
   amount = 1000,         # 24 hours amount
   expire = 3600*24,      # 24 hours
-  identity = lambda h: h.request.remote_ip,
+  identity = lambda h: h.request.uri,
   on_exceed = token_limit_exceed)
 
 
@@ -71,7 +71,7 @@ def account_exists(account_name):
     return False
 
 def generate_key():
-  ret = os.popen('cleos create key').read()
+  ret = os.popen('cleos create key --to-console').read()
   array = ret.split()
   if len(array) == 6:
     return { 'private': array[2], 'public': array[5] }
