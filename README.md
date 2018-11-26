@@ -1,6 +1,11 @@
-# eos_faucet
-
 # install eos_faucet
+first install the python lib
+```
+python -m pip install tornado
+python -m pip install requests
+python -m pip install redis
+apt-get install redis-server
+```
 ## get code from github
 ```
 git clone https://github.com/zsq978663747/eos_faucet.git
