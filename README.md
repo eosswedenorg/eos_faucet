@@ -1,20 +1,43 @@
 # eos_faucet
 
-## server side:
+# install eos_faucet
+## get code from github
 ```
-cd your_working_dir
-
-git clone https://github.com/cryptokylin/eos_faucet.git
-
-cd eos_faucet
+git clone https://github.com/zsq978663747/eos_faucet.git
 ```
+## start keosd
+
+## create wallet and faucetaccout
+```
+cleos wallet create -n eosfaucetwallet
+
+cleos system newaccount eosio eosfaucet1111  <public-key> <public-key> --stake-net "10 EOS" --stake-cpu "10 EOS" --buy-ram "5 EOS"
+```
+import eosfaucet1111 private-key to eosfaucetwallet.wallet
+```
+cleos wallet import -n eosfaucetwallet --private-key <private-key>
+```
+## set the wallet.py config
 open wallet.py, paste account (to create account, transfer tokens) name, wallet name, wallet password accordingly, then save
+,such as:
+```
+ACCOUNT = "eosfaucet111"
 
+# paste your local wallet name
+NAME = "eosfaucetwallet"
+
+# paste your local wallet password
+PASSWD = "PW5xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+```
+
+## start server
 ```
 python clfaucet.py
 ```
 
-## client side:
+
+# client side:
 
 you can create at most 1000 accounts per day. 
 ```
