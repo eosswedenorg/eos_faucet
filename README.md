@@ -11,7 +11,9 @@ apt-get install redis-server
 git clone https://github.com/zsq978663747/eos_faucet.git
 ```
 ## start keosd
-
+```
+keosd --http-server-address=127.0.0.1:8900 --wallet-dir `pwd`/wallet/ &
+```
 ## create wallet and faucetaccout
 ```
 cleos wallet create -n eosfaucetwallet
@@ -35,6 +37,8 @@ NAME = "eosfaucetwallet"
 PASSWD = "PW5xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ```
+
+- if you  use other eos-network,you should change the 'EOS' to 'xxx' in clfaucet.py
 
 ## start server
 ```
