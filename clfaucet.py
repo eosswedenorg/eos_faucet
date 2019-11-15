@@ -114,7 +114,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
       return None
 
   def _os_cmd_transfer(self, param):
-    cmdline = 'cleos --url {} transfer {} {} "{} {}" {}'.format(eosapi.NODEOS_URL,
+    cmdline = 'cleos --url {} --wallet-url {} transfer {} {} "{} {}" {}'.format(eosapi.NODEOS_URL, eosapi.KEOSD_URL,
                                                                 param['from'],
                                                                 param['to'],
                                                                 param['quantity'],
@@ -189,8 +189,8 @@ class CreateAccountHandler(tornado.web.RequestHandler):
     return p
 
   def _os_cmd_create_account(self, p):
-    cmdline = 'cleos --url {} system newaccount --stake-net \'{}\' --stake-cpu \'{}\' --buy-ram-kbytes {} {} {} {} {}'.format(
-      eosapi.NODEOS_URL,
+    cmdline = 'cleos --url {} --wallet-url {} system newaccount --stake-net \'{}\' --stake-cpu \'{}\' --buy-ram-kbytes {} {} {} {} {}'.format(
+      eosapi.NODEOS_URL, eosapi.KEOSD_URL,
       p['stake-net'],
       p['stake-cpu'],
       p['buy-ram-kbytes'],
