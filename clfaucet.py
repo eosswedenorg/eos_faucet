@@ -106,7 +106,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
       p['from']     = config.ACCOUNT
       p['to']       = data['account']
       p['quantity'] = single_get_token_call_amount
-      p['symbol']   = "EOS"
+      p['symbol']   = config.TOKEN
       if data.has_key('memo'): p['memo']   = data['memo']
       else:                    p['memo']   = ''
       return p
@@ -184,8 +184,8 @@ class CreateAccountHandler(tornado.web.RequestHandler):
       'account':        account_name,
       'owner_key':      owner_key,
       'active_key':     active_key,
-      'stake-cpu':      '1 EOS',
-      'stake-net':      '1 EOS',
+      'stake-cpu':      '1 ' + config.TOKEN,
+      'stake-net':      '1 ' + config.TOKEN,
       'buy-ram-kbytes': 8
     }
     return p
