@@ -6,7 +6,7 @@ import json
 import requests
 
 import eosapi
-import wallet
+import config
 
 import os
 import re
@@ -44,8 +44,8 @@ def is_valid_newaccount_name(account_name):
 
 def unlock_wallet():
   param = json.dumps([
-    wallet.NAME,
-    wallet.PASSWD
+    config.NAME,
+    config.PASSWD
   ])
   response = requests.request("POST", eosapi.WALLET_UNLOCK, data=param)
   return response.status_code == 200
@@ -81,12 +81,12 @@ def generate_key():
 def unlock_wallet_if_locked():
   unlocked = False
   if is_wallet_locked():
-    print('wallet "{}" locked, try to unlock...'.format(wallet.NAME))
+    print('wallet "{}" locked, try to unlock...'.format(config.NAME))
     if unlock_wallet():
       unlocked = True
-      print('wallet "{}" unlocked!'.format(wallet.NAME))
+      print('wallet "{}" unlocked!'.format(config.NAME))
     else:
-      print('wallet "{}" unlock failed'.format(wallet.NAME))
+      print('wallet "{}" unlock failed'.format(config.NAME))
   else:
     unlocked = True
   return unlocked
@@ -103,7 +103,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
   def _assembly_args(self, data):
     if data.has_key('account') and is_valid_account_name(data['account']):
       p = {}
-      p['from']     = wallet.ACCOUNT
+      p['from']     = config.ACCOUNT
       p['to']       = data['account']
       p['quantity'] = single_get_token_call_amount
       p['symbol']   = "EOS"
@@ -120,8 +120,8 @@ class GetTokenHandler(tornado.web.RequestHandler):
                                                                 param['quantity'],
                                                                 param['symbol'],
                                                                 param['memo'],
-                                                                wallet.ACCOUNT,
-                                                                wallet.PERMISSION)
+                                                                config.ACCOUNT,
+                                                                config.PERMISSION)
     result = os.system(cmdline)
     return result == 0
 
@@ -180,7 +180,7 @@ class CreateAccountHandler(tornado.web.RequestHandler):
 
   def _assembly_args(self, account_name, owner_key, active_key):
     p = {
-      'creator':        wallet.ACCOUNT,
+      'creator':        config.ACCOUNT,
       'account':        account_name,
       'owner_key':      owner_key,
       'active_key':     active_key,
@@ -200,8 +200,8 @@ class CreateAccountHandler(tornado.web.RequestHandler):
       p['account'],
       p['owner_key'],
       p['active_key'],
-      wallet.ACCOUNT,
-      wallet.PERMISSION
+      config.ACCOUNT,
+      config.PERMISSION
     )
     result = os.system(cmdline)
     return result == 0
