@@ -22,8 +22,8 @@ import eosfaucet1111 private-key to eosfaucetwallet.wallet
 ```
 cleos wallet import -n eosfaucetwallet --private-key <private-key>
 ```
-## set the wallet.py config
-open wallet.py, paste account (to create account, transfer tokens) name, wallet name, wallet password accordingly, then save
+## set the config
+open config.py, paste account (to create account, transfer tokens) name, wallet name, wallet password accordingly, then save
 ,such as:
 ```
 ACCOUNT = "eosfaucet111"
@@ -36,7 +36,7 @@ PASSWD = "PW5xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ```
 
-- if you  use other eos-network,you should change the 'EOS' to 'xxx' in clfaucet.py
+You can also change other things such as token symbol, http port, ratelimit etc. Just read the comments in the file.
 
 ## start server
 ```
