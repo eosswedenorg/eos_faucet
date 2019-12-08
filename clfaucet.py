@@ -10,13 +10,14 @@ import config
 
 import os
 import re
+from helpers import format_timespan
 import ratelimit
 
 # ------------------------------------------------------------------------------------------
 # ------ token transfer limiter
 
 def token_limit_exceed(handler):
-    write_json_response(handler, {'msg': 'reach 24 hours max token amount'}, 403)
+    write_json_response(handler, {'msg': 'You have reached the max amount of tokens for {}'.format(format_timespan(config.RATE_LIMIT_TOKEN_EXPIRE))}, 403)
 
 single_get_token_call_amount = 100
 
@@ -160,7 +161,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
 # ------ account creation limiter
 
 def newaccount_limit_exceed(handler):
-    write_json_response(handler, {'msg': 'reach 24 hours max amount of account creation'}, 403)
+    write_json_response(handler, {'msg': 'You have reached the max amount of account creation for {}'.format(format_timespan(config.RATE_LIMIT_ACCOUNT_EXPIRE))}, 403)
 
 ip_24h_newaccount_amount_limiter = ratelimit.RateLimitType(
   name = "ip_24h_newaccount_amount",
