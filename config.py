@@ -1,8 +1,12 @@
 
+# Token symbol to use
+TOKEN="EOS"
+
+#  Faucet account
+# -------------------------
+
 # paste your testnet account (to create accounts, transfer tokens) name
 ACCOUNT = ""
-
-TOKEN="EOS"
 
 # Set the permission to use when creating accounts/transfer tokens
 # NOTE: if using custom permission you must set the following auths:
@@ -12,6 +16,9 @@ TOKEN="EOS"
 #   eosio::sellram
 #   eosio.token::transfer
 PERMISSION="active"
+
+#  Wallet
+# -------------------------
 
 # paste your local wallet name
 NAME = ""
