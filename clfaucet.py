@@ -238,7 +238,7 @@ class CreateAccountHandler(tornado.web.RequestHandler):
         }
         write_json_response(self, retmsg)
       else:
-        failmsg = {'msg': 'failed, failed to createa account'}
+        failmsg = {'msg': 'failed, failed to create account'}
         write_json_response(self, failmsg, 400)
     else:
       failmsg = {'msg': 'failed, failed to generate keys'}
