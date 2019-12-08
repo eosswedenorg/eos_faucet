@@ -265,6 +265,6 @@ def make_app():
 if __name__ == "__main__":
   app = make_app()
   server = tornado.httpserver.HTTPServer(app)
-  server.bind(80)
+  server.bind(config.HTTP_LISTEN_PORT)
   server.start(0)
   tornado.ioloop.IOLoop.current().start()

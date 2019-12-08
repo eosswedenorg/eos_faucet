@@ -18,3 +18,9 @@ NAME = ""
 
 # paste your local wallet password
 PASSWD = ""
+
+#  Server
+# -------------------------
+
+# What port http should be served on.
+HTTP_LISTEN_PORT = 80
