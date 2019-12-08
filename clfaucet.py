@@ -22,8 +22,8 @@ single_get_token_call_amount = 100
 
 ip_24h_token_amount_limiter = ratelimit.RateLimitType(
   name = "ip_24h_token_amount",
-  amount = 1000,         # 24 hours amount
-  expire = 3600*24,      # 24 hours
+  amount = config.RATE_LIMIT_TOKEN_AMOUNT,
+  expire = config.RATE_LIMIT_TOKEN_EXPIRE,
   identity = lambda h: h.request.uri,
   on_exceed = token_limit_exceed)
 
@@ -164,8 +164,8 @@ def newaccount_limit_exceed(handler):
 
 ip_24h_newaccount_amount_limiter = ratelimit.RateLimitType(
   name = "ip_24h_newaccount_amount",
-  amount = 1000,         # 24 hours amount
-  expire = 3600*24,      # 24 hours
+  amount = config.RATE_LIMIT_ACCOUNT_AMOUNT,
+  expire = config.RATE_LIMIT_ACCOUNT_EXPIRE,
   identity = lambda h: h.request.remote_ip,
   on_exceed = newaccount_limit_exceed)
 
