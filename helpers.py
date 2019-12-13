@@ -14,3 +14,8 @@ def format_timespan(s) :
   if m > 0 :
     parts.append(format_plural(m, "minute"))
   return ', '.join(parts)
+
+def remote_ip(request) :
+  return request.headers.get("X-Real-IP") or \
+         request.headers.get("X-Forwarded-For") or \
+         request.remote_ip
