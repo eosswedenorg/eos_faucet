@@ -11,6 +11,7 @@ import config
 import os
 import re
 from helpers import format_timespan
+from helpers import remote_ip
 import ratelimit
 
 # ------------------------------------------------------------------------------------------
@@ -167,7 +168,7 @@ ip_24h_newaccount_amount_limiter = ratelimit.RateLimitType(
   name = "ip_24h_newaccount_amount",
   amount = config.RATE_LIMIT_ACCOUNT_AMOUNT,
   expire = config.RATE_LIMIT_ACCOUNT_EXPIRE,
-  identity = lambda h: h.request.remote_ip,
+  identity = lambda h: remote_ip(h.request),
   on_exceed = newaccount_limit_exceed)
 
 
