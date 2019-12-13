@@ -22,8 +22,8 @@ def token_limit_exceed(handler):
 
 single_get_token_call_amount = 100
 
-ip_24h_token_amount_limiter = ratelimit.RateLimitType(
-  name = "ip_24h_token_amount",
+token_account_amount_limiter = ratelimit.RateLimitType(
+  name = "token_account_amount",
   amount = config.RATE_LIMIT_TOKEN_AMOUNT,
   expire = config.RATE_LIMIT_TOKEN_EXPIRE,
   identity = lambda h: h.request.uri,
@@ -137,7 +137,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
     param = self._assembly_args(data)
     if param:
       if self._make_transfer(param):
-        ip_24h_token_amount_limiter.increase_amount(param['quantity'], self)
+        token_account_amount_limiter.increase_amount(param['quantity'], self)
         write_json_response(self, {'msg': 'succeeded'})
       else:
         failmsg = {'msg': 'transaction failed, possible reason: account does not exist'}
@@ -146,13 +146,13 @@ class GetTokenHandler(tornado.web.RequestHandler):
       fmtmsg = {'msg':'please use request with URL of format: http://<your_server_ip>/get_token?valid_account_name'}
       write_json_response(self, fmtmsg, 400)
 
-  @ratelimit.limit_by(ip_24h_token_amount_limiter)
+  @ratelimit.limit_by(token_account_amount_limiter)
   def post(self):
     data = {'account': get_first_arg_name_from_request(self.request)}
     # data = json.loads(self.request.body.decode())
     self._handle(data)
 
-  @ratelimit.limit_by(ip_24h_token_amount_limiter)
+  @ratelimit.limit_by(token_account_amount_limiter)
   def get(self):
     data = {'account': get_first_arg_name_from_request(self.request)}
     self._handle(data)
@@ -164,8 +164,8 @@ class GetTokenHandler(tornado.web.RequestHandler):
 def newaccount_limit_exceed(handler):
     write_json_response(handler, {'msg': 'You have reached the max amount of account creation for {}'.format(format_timespan(config.RATE_LIMIT_ACCOUNT_EXPIRE))}, 403)
 
-ip_24h_newaccount_amount_limiter = ratelimit.RateLimitType(
-  name = "ip_24h_newaccount_amount",
+newaccount_ip_amount_limiter = ratelimit.RateLimitType(
+  name = "newaccount_ip_amount",
   amount = config.RATE_LIMIT_ACCOUNT_AMOUNT,
   expire = config.RATE_LIMIT_ACCOUNT_EXPIRE,
   identity = lambda h: remote_ip(h.request),
@@ -232,7 +232,7 @@ class CreateAccountHandler(tornado.web.RequestHandler):
     if owner_key and active_key:
       p = self._assembly_args(name, owner_key['public'], active_key['public'])
       if self._create_account(p):
-        ip_24h_newaccount_amount_limiter.increase_amount(1, self)
+        newaccount_ip_amount_limiter.increase_amount(1, self)
         retmsg = {
           'msg':      'succeeded',
           'account':  name,
@@ -246,11 +246,11 @@ class CreateAccountHandler(tornado.web.RequestHandler):
       failmsg = {'msg': 'failed, failed to generate keys'}
       write_json_response(self, failmsg, 400)
 
-  @ratelimit.limit_by(ip_24h_newaccount_amount_limiter)
+  @ratelimit.limit_by(newaccount_ip_amount_limiter)
   def post(self):
     self._handle(self.request)
 
-  @ratelimit.limit_by(ip_24h_newaccount_amount_limiter)
+  @ratelimit.limit_by(newaccount_ip_amount_limiter)
   def get(self):
     self._handle(self.request)
 
