@@ -18,9 +18,10 @@ class RateLimitType:
         return "l_%s:%s" % (self.name, self.identity(identity_arg))
 
     def check(self, identity_arg):
+        print "ratelimit (%s): Checking ident '%s'" % (self.name, self.identity(identity_arg))
         amount = g_redis.get(self.server_name(identity_arg))
         return amount != None and int(amount) >= self.amount
-    
+
     def update_amount(self, amount, identity_arg, reset_ex=False):
         name = self.server_name(identity_arg)
         if (reset_ex):
