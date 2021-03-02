@@ -1,10 +1,8 @@
 
+import config
 
-NODEOS_URL = "http://127.0.0.1:8888"              # testnet node api
-KEOSD_URL = "http://127.0.0.1:8900"               # your keosd url
-
-CHAIN_URL = ''.join([NODEOS_URL, "/v1/chain/"])
-WALLET_URL = ''.join([KEOSD_URL, "/v1/wallet/"])
+CHAIN_URL = ''.join([config.NODEOS_URL, "/v1/chain/"])
+WALLET_URL = ''.join([config.KEOSD_URL, "/v1/wallet/"])
 
 GET_INFO = ''.join([CHAIN_URL, "get_info"])
 GET_BLOCK = ''.join([CHAIN_URL, "get_block"])
