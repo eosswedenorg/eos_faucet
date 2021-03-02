@@ -20,8 +20,6 @@ import ratelimit
 def token_limit_exceed(handler):
     write_json_response(handler, {'msg': 'You have reached the max amount of tokens for {}'.format(format_timespan(config.RATE_LIMIT_TOKEN_EXPIRE))}, 403)
 
-single_get_token_call_amount = 100
-
 token_account_amount_limiter = ratelimit.RateLimitType(
   name = "token_account_amount",
   amount = config.RATE_LIMIT_TOKEN_AMOUNT,
@@ -107,7 +105,7 @@ class GetTokenHandler(tornado.web.RequestHandler):
       p = {}
       p['from']     = config.ACCOUNT
       p['to']       = data['account']
-      p['quantity'] = single_get_token_call_amount
+      p['quantity'] = config.SEND_TOKEN_QUANTITY
       p['symbol']   = config.TOKEN
       if data.has_key('memo'): p['memo']   = data['memo']
       else:                    p['memo']   = ''
