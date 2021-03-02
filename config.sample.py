@@ -2,6 +2,9 @@
 # Token symbol to use
 TOKEN="EOS"
 
+# Amount of tokens to send per call.
+SEND_TOKEN_QUANTITY=100
+
 #  Faucet account
 # -------------------------
 
