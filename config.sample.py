@@ -5,6 +5,9 @@ TOKEN="EOS"
 # Amount of tokens to send per call.
 SEND_TOKEN_QUANTITY=100
 
+# testnet node api
+NODEOS_URL = "http://127.0.0.1:8888"
+
 #  Faucet account
 # -------------------------
 
@@ -22,6 +25,9 @@ PERMISSION="active"
 
 #  Wallet
 # -------------------------
+
+# your keosd url
+KEOSD_URL = "http://127.0.0.1:8900"
 
 # paste your local wallet name
 NAME = ""
