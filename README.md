@@ -23,8 +23,10 @@ import eosfaucet1111 private-key to eosfaucetwallet.wallet
 cleos wallet import -n eosfaucetwallet --private-key <private-key>
 ```
 ## set the config
-open config.py, paste account (to create account, transfer tokens) name, wallet name, wallet password accordingly, then save
-,such as:
+
+Copy `config.sample.py` to `config.py`
+
+open `config.py`, edit account (to create account, transfer tokens) name, wallet name, wallet password accordingly, then save, such as:
 ```
 ACCOUNT = "eosfaucet111"
 
